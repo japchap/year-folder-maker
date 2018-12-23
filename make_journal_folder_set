@@ -1,0 +1,16 @@
+tell application "Finder"
+	set top_folder_name to (choose folder with prompt "Select the folder where you want to create your journal folder set.")
+	make new folder with properties {name:"Journal Entries"} at folder top_folder_name
+	repeat with year_number from 2015 to 2019
+		make new folder with properties {name:year_number as string} at folder (top_folder_name & "Journal Entries" as string)
+		set year_subfolder_path to ((top_folder_name & "Journal Entries:" as string) & (year_number as string))
+		repeat with i from 1 to 9
+			set folder_name to ((year_number as string) & ".0" & i as string)
+			make new folder with properties {name:folder_name} at folder year_subfolder_path
+		end repeat
+		repeat with i from 10 to 12
+			set folder_name to ((year_number as string) & "." & i as string)
+			make new folder with properties {name:folder_name} at folder year_subfolder_path
+		end repeat -- ends the month number (i) loop
+	end repeat -- ends the year_number loop
+end tell
